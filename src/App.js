@@ -4,7 +4,7 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <a-scene arjs="sourceType: webcam; debugUIEnabled: true">
+      <a-scene arjs>
         <a-marker preset="hiro">
           <a-box
             position="0 0 0.5"
