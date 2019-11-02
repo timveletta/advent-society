@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import QrCodeReader from "./components/qr-code-reader";
+import Timer from "./components/timer";
 
 function App() {
   return (
     <div className="App">
-      <QrCodeReader />
+      <Timer />
     </div>
   );
 }
