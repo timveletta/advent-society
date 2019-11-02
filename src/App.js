@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
+import QrReader from "react-qr-reader";
 
 function App() {
+  const [qrCode, setQrCode] = useState(null);
+
+  useEffect(() => {
+    console.log(qrCode);
+  }, [qrCode]);
+
   return (
     <div className="App">
-      <a-scene arjs>
-        <a-marker preset="hiro">
-          <a-box
-            position="0 0 0.5"
-            material="opacity: 0.7; color: yellow;"
-          ></a-box>
-        </a-marker>
-        <a-entity camera></a-entity>
-      </a-scene>
+      <QrReader
+        onScan={setQrCode}
+        onError={e => console.error(e)}
+        style={{ width: "100%" }}
+      />
     </div>
   );
 }
