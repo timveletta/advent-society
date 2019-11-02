@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.qr-code-reader > section {
+  height: 100%;
+  padding-top: 0 !important;
+}
