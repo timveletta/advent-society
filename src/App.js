@@ -1,12 +1,21 @@
 import React from "react";
 import "./App.css";
-import Timer from "./components/timer";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import Timer from "./components/Timer";
 
 function App() {
   return (
-    <div className="App">
-      <Timer />
-    </div>
+    <Router className="App">
+      <Switch>
+        <Route path="/">
+          <Timer />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

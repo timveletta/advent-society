@@ -8,6 +8,8 @@ const Container = styled.div`
   height: 100vh;
   align-items: center;
   background-color: #333;
+  max-width: 400px;
+  margin: 0 auto;
 `;
 
 const Interval = styled.div`
@@ -15,7 +17,7 @@ const Interval = styled.div`
 `;
 
 export default function Timer() {
-  const targetDate = new Date(2019, 11, 1, 9);
+  const targetDate = new Date(2019, 11, 13, 9);
   const [difference, setDifference] = useState(0);
 
   useInterval(() => {
