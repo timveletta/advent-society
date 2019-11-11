@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 import { useInterval } from "../hooks/useInterval";
 import styled from "styled-components";
 
@@ -16,8 +17,11 @@ const Interval = styled.div`
   color: #fff;
 `;
 
-export default function Timer() {
-  const targetDate = new Date(2019, 11, 13, 9);
+Timer.propTypes = {
+  targetDate: PropTypes.instanceOf(Date).isRequired
+}
+
+export default function Timer({ targetDate }) {
   const [difference, setDifference] = useState(0);
 
   useInterval(() => {
@@ -53,3 +57,4 @@ export default function Timer() {
     </Container>
   );
 }
+
