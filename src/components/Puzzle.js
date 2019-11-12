@@ -4,6 +4,7 @@ import Anchor from "./Anchor";
 import Connector from "./Connector";
 import StartPoint from "./StartPoint";
 import EndPoint from "./EndPoint";
+import Line from "./Line";
 
 const Puzzle = () => {
   const margin = { top: 36, left: 36 };
@@ -34,6 +35,8 @@ const Puzzle = () => {
         x={margin.left + anchorPos[anchorPos.length - 1]}
         y={margin.top + anchorPos[anchorPos.length - 1]}
       />
+
+      <Line startX={margin.left} startY={margin.top} />
     </Canvas>
   );
 };
