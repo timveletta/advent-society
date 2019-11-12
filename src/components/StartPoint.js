@@ -8,7 +8,7 @@ const StartPoint = ({ x, y }) => {
       data-name="start-point"
       cx={x + 20}
       cy={y + 20}
-      r={40}
+      r={56}
       fill={"gray"}
     />
   );
