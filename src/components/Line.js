@@ -1,48 +1,34 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Circle } from "react-konva";
 
-const Line = ({ startX, startY }) => {
-  const [isDragging, setIsDragging] = useState(false);
+const Line = ({ startX, startY, startingAnchor }) => {
   const [position, setPosition] = useState({ x: startX + 20, y: startY + 20 });
-  const [origin, setOrigin] = useState({ x: 0, y: 0 });
 
-  const onDragStart = event => {
-    setOrigin({
-      x: event.clientX || event.touches[0].clientX,
-      y: event.clientY || event.touches[0].clientY
-    });
-    setIsDragging(true);
-  };
-
-  const onDragEnd = event => {
-    setIsDragging(false);
-  };
-
-  const onDrag = event => {
-    if (isDragging) {
-      setPosition({
-        x: event.clientX || event.touches[0].clientX - origin.x,
-        y: event.clientY || event.touches[0].clientY - origin.y
-      });
-    }
-  };
+  const onDrag = event => {};
 
   return (
-    <circle
-      id="line-start"
-      data-name="line-start"
-      cx={position.x}
-      cy={position.y}
-      r={56}
-      fill={"#ffef00"}
-      onMouseDown={onDragStart}
-      onMouseUp={onDragEnd}
-      onMouseMove={onDrag}
-      onTouchStart={onDragStart}
-      onTouchEnd={onDragEnd}
-      onTouchCancel={onDragEnd}
-      onTouchMove={onDrag}
-    />
+    <>
+      <Circle
+        id="line-start"
+        data-name="line-start"
+        x={startX + 20}
+        y={startY + 20}
+        radius={56}
+        fill={"#ffef00"}
+      />
+      <Circle
+        id="drag-handler"
+        data-name="drag-handler"
+        x={position.x}
+        y={position.y}
+        radius={56}
+        fill={"#ffef00"}
+        opacity={0.1}
+        onDragMove={onDrag}
+        draggable
+      />
+    </>
   );
 };
 

@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Rect } from "react-konva";
 
 const EndPoint = ({ x, y, isHorizontal = true }) => {
   return (
-    <rect
+    <Rect
       id="end-point"
       data-name="end-point"
       x={x}

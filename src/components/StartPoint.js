@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Circle } from "react-konva";
 
 const StartPoint = ({ x, y }) => {
   return (
-    <circle
+    <Circle
       id="start-point"
       data-name="start-point"
-      cx={x + 20}
-      cy={y + 20}
-      r={56}
+      x={x + 20}
+      y={y + 20}
+      radius={56}
       fill={"gray"}
     />
   );

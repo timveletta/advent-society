@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Rect } from "react-konva";
 
 const Connector = ({ x, y, isHorizontal = true }) => {
   return (
-    <rect
+    <Rect
       id="connector"
       data-name="connector"
       x={x}

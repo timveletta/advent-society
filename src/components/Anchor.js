@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Rect } from "react-konva";
 
-const Anchor = ({ x, y }) => {
+const Anchor = ({ x, y, connectedAnchors }) => {
   return (
-    <rect
+    <Rect
       id="anchor"
       data-name="anchor"
       x={x}
