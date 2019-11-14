@@ -1,7 +1,10 @@
-import React from "react";
+import React, { SFC } from "react";
 import { Route, Redirect } from "react-router-dom";
 
-export const PrivateRoute = ({ children, ...rest }) => (
+const PrivateRoute: SFC<{ children: React.ReactNode; rest: any }> = ({
+  children,
+  ...rest
+}) => (
   <Route
     {...rest}
     render={({ location }) =>
@@ -18,3 +21,5 @@ export const PrivateRoute = ({ children, ...rest }) => (
     }
   ></Route>
 );
+
+export default PrivateRoute;
