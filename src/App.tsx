@@ -10,7 +10,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/puzzle">
+        {/* <Route path="/puzzle"> */}
+        <Route>
           <PuzzleContainer />
         </Route>
         <Route>
