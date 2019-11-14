@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { useInterval } from "../hooks/useInterval";
+import * as React from "react";
+import useInterval from "../hooks/useInterval";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -17,15 +16,11 @@ const Interval = styled.div`
   color: #fff;
 `;
 
-Timer.propTypes = {
-  targetDate: PropTypes.instanceOf(Date).isRequired
-};
-
-export default function Timer({ targetDate }) {
-  const [difference, setDifference] = useState(0);
+const Timer: React.SFC<{ targetDate: Date }> = ({ targetDate }) => {
+  const [difference, setDifference] = React.useState(0);
 
   useInterval(() => {
-    setDifference(targetDate - new Date());
+    setDifference(targetDate.getTime() - new Date().getTime());
   }, 1000);
 
   const days = () => Math.floor(difference / (1000 * 60 * 60 * 24));
@@ -56,4 +51,6 @@ export default function Timer({ targetDate }) {
       </Interval>
     </Container>
   );
-}
+};
+
+export default Timer;

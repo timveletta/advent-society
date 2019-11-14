@@ -1,28 +1,28 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Timer from "./components/Timer";
-import Puzzle from "./components/Puzzle";
+import PuzzleContainer from "./components/PuzzleContainer";
 
-function App() {
-  const targetDate = new Date(2019, 11, 13, 9);
+const App = () => {
+  const targetDate: Date = new Date(2019, 11, 13, 9);
 
   return (
-    <Router className="App">
+    <BrowserRouter>
       <Switch>
         <Route path="/puzzle">
-          <Puzzle />
+          <PuzzleContainer />
         </Route>
         <Route>
-          {targetDate - new Date() > 0 ? (
+          {targetDate.getTime() - new Date().getTime() > 0 ? (
             <Timer targetDate={targetDate} />
           ) : (
             <div>Enter the code</div>
           )}
         </Route>
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
