@@ -49,11 +49,9 @@ const Line: SFC<{
   };
 
   const performAction = (nextAnchor: IAnchor) => {
-    debugger;
     if (nextAnchor && !lineAnchors.find((a: IAnchor) => a === nextAnchor)) {
       setLineAnchors((prev: IAnchor[]) => {
         const a = prev.concat([nextAnchor]);
-        debugger;
         return a;
       });
     } else if (

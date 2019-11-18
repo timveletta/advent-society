@@ -27,17 +27,18 @@ ACACACACE`;
 
 interface IPuzzle {
   inputs: Array<"up" | "down" | "left" | "right">;
+  width?: number;
+  puzzle?: string;
 }
 
-const Puzzle: SFC<IPuzzle> = ({ inputs }) => {
+const Puzzle: SFC<IPuzzle> = ({ inputs, width = 5, puzzle = PUZZLE }) => {
   const margin = { top: 36, left: 36 };
   const anchorPos = [0, 128, 256, 384, 512];
 
   const [anchors, setAnchors] = useState<IAnchor[]>([]);
 
   useEffect(() => {
-    console.log("useEffect");
-    const puzzleRows: string[] = PUZZLE.match(/.{1,9}/g) || [];
+    const puzzleRows: string[] = puzzle.match(/.{1,9}/g) || [];
     // create anchor objects
     const anchorMap = puzzleRows
       .filter((v, index) => index % 2 === 0) // only include event indexes for now

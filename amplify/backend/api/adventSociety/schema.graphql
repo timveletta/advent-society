@@ -1,0 +1,5 @@
+type Puzzle @model @auth {
+  id: ID!
+  map: String!
+  width: Int
+}
