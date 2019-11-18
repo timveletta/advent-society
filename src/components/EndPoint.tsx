@@ -6,13 +6,12 @@ const EndPoint: SFC<{ x: number; y: number; isHorizontal?: boolean }> = ({
   isHorizontal = true
 }) => {
   return (
-    <rect
-      id="end-point"
-      data-name="end-point"
-      x={x}
-      y={y}
-      width={isHorizontal ? 60 : 20}
-      height={isHorizontal ? 20 : 60}
+    <circle
+      id="start-point"
+      data-name="start-point"
+      cx={x + 10}
+      cy={y + 10}
+      r={30}
       fill={"gray"}
     />
   );

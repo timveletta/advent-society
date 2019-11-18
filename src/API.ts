@@ -1,22 +1,6 @@
 /* tslint:disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreatePuzzleInput = {
-  id?: string | null,
-  map: string,
-  width?: number | null,
-};
-
-export type UpdatePuzzleInput = {
-  id: string,
-  map?: string | null,
-  width?: number | null,
-};
-
-export type DeletePuzzleInput = {
-  id?: string | null,
-};
-
 export type ModelPuzzleFilterInput = {
   id?: ModelIDFilterInput | null,
   map?: ModelStringFilterInput | null,
@@ -64,45 +48,6 @@ export type ModelIntFilterInput = {
   between?: Array< number | null > | null,
 };
 
-export type CreatePuzzleMutationVariables = {
-  input: CreatePuzzleInput,
-};
-
-export type CreatePuzzleMutation = {
-  createPuzzle:  {
-    __typename: "Puzzle",
-    id: string,
-    map: string,
-    width: number | null,
-  } | null,
-};
-
-export type UpdatePuzzleMutationVariables = {
-  input: UpdatePuzzleInput,
-};
-
-export type UpdatePuzzleMutation = {
-  updatePuzzle:  {
-    __typename: "Puzzle",
-    id: string,
-    map: string,
-    width: number | null,
-  } | null,
-};
-
-export type DeletePuzzleMutationVariables = {
-  input: DeletePuzzleInput,
-};
-
-export type DeletePuzzleMutation = {
-  deletePuzzle:  {
-    __typename: "Puzzle",
-    id: string,
-    map: string,
-    width: number | null,
-  } | null,
-};
-
 export type GetPuzzleQueryVariables = {
   id: string,
 };
@@ -132,32 +77,5 @@ export type ListPuzzlesQuery = {
       width: number | null,
     } | null > | null,
     nextToken: string | null,
-  } | null,
-};
-
-export type OnCreatePuzzleSubscription = {
-  onCreatePuzzle:  {
-    __typename: "Puzzle",
-    id: string,
-    map: string,
-    width: number | null,
-  } | null,
-};
-
-export type OnUpdatePuzzleSubscription = {
-  onUpdatePuzzle:  {
-    __typename: "Puzzle",
-    id: string,
-    map: string,
-    width: number | null,
-  } | null,
-};
-
-export type OnDeletePuzzleSubscription = {
-  onDeletePuzzle:  {
-    __typename: "Puzzle",
-    id: string,
-    map: string,
-    width: number | null,
   } | null,
 };

@@ -1,4 +1,4 @@
-type Puzzle @model {
+type Puzzle @model(mutations: null, subscriptions: null) {
   id: ID!
   map: String!
   width: Int
