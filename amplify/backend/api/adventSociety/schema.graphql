@@ -1,4 +1,4 @@
-type Puzzle @model @auth {
+type Puzzle @model {
   id: ID!
   map: String!
   width: Int
