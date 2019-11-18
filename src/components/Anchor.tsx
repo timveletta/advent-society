@@ -2,10 +2,12 @@ import React, { SFC } from "react";
 import Connector from "./Connector";
 import StartPoint from "./StartPoint";
 import EndPoint from "./EndPoint";
+import { LINE_WIDTH } from "../constants";
 
 export interface IAnchor {
   x: number;
   y: number;
+  lineLength: number;
   up?: IAnchor;
   down?: IAnchor;
   left?: IAnchor;
@@ -17,6 +19,7 @@ export interface IAnchor {
 const Anchor: SFC<IAnchor> = ({
   x,
   y,
+  lineLength,
   down,
   right,
   isStart = false,
@@ -29,12 +32,14 @@ const Anchor: SFC<IAnchor> = ({
         data-name="anchor"
         x={x}
         y={y}
-        width={20}
-        height={20}
+        width={LINE_WIDTH}
+        height={LINE_WIDTH}
         fill={"gray"}
       />
-      {right && <Connector x={x} y={y} />}
-      {down && <Connector x={x} y={y} isHorizontal={false} />}
+      {right && <Connector x={x} y={y} lineLength={lineLength} />}
+      {down && (
+        <Connector x={x} y={y} lineLength={lineLength} isHorizontal={false} />
+      )}
       {isStart && <StartPoint x={x} y={y} />}
       {isEnd && <EndPoint x={x} y={y} />}
     </>

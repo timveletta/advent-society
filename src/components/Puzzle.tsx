@@ -2,43 +2,38 @@ import React, { useState, useEffect, useMemo, SFC } from "react";
 import Canvas from "./Canvas";
 import Anchor, { IAnchor } from "./Anchor";
 import Line from "./Line";
-
-/**
- * S - start point
- * E - end point
- * C - connector
- * A - anchor
- * 0 - empty
- * 1=0
- * 2=2
- * 3=4
- * 4=6
- */
-const PUZZLE = `
-SCACACACA
-C0C0C0C0C
-ACACACACA
-C0C0C0C0C
-ACACACACA
-C0C0C0C0C
-ACACACACA
-C0C0C0C0C
-ACACACACE`;
+import { MARGIN, LINE_WIDTH, SVG_WIDTH, SVG_HEIGHT } from "../constants";
 
 interface IPuzzle {
   inputs: Array<"up" | "down" | "left" | "right">;
-  width?: number;
-  puzzle?: string;
+  columns: number;
+  puzzleMap: string;
 }
 
-const Puzzle: SFC<IPuzzle> = ({ inputs, width = 5, puzzle = PUZZLE }) => {
-  const margin = { top: 36, left: 36 };
-  const anchorPos = [0, 128, 256, 384, 512];
-
+const Puzzle: SFC<IPuzzle> = ({ inputs, columns, puzzleMap }) => {
   const [anchors, setAnchors] = useState<IAnchor[]>([]);
+  const anchorPositions: number[] = [];
+  let lineLength: number = 128;
 
   useEffect(() => {
-    const puzzleRows: string[] = puzzle.match(/.{1,9}/g) || [];
+    const useableWidth = SVG_WIDTH - MARGIN.left * 2 - LINE_WIDTH;
+    if (columns > 1) {
+      for (let i = 0; i < columns; i++) {
+        anchorPositions.push((i * useableWidth) / (columns - 1));
+      }
+    } else {
+      anchorPositions.push(useableWidth / 2);
+    }
+    lineLength =
+      columns > puzzleMap.length / columns
+        ? useableWidth / columns
+        : (SVG_HEIGHT - MARGIN.top * 2 - LINE_WIDTH) /
+          puzzleMap.length /
+          columns;
+  }, [columns]);
+
+  useEffect(() => {
+    const puzzleRows: string[] = puzzleMap.match(/.{1,9}/g) || [];
     // create anchor objects
     const anchorMap = puzzleRows
       .filter((v, index) => index % 2 === 0) // only include event indexes for now
@@ -47,8 +42,8 @@ const Puzzle: SFC<IPuzzle> = ({ inputs, width = 5, puzzle = PUZZLE }) => {
         row.split("").forEach((identifier: string) => {
           if (identifier === "A" || identifier === "S" || identifier === "E") {
             anchorsList.push({
-              x: anchorPos[anchorsList.length] + margin.left,
-              y: anchorPos[yIndex] + margin.top,
+              x: anchorPositions[anchorsList.length] + MARGIN.left,
+              y: anchorPositions[yIndex] + MARGIN.top,
               isStart: identifier === "S",
               isEnd: identifier === "E"
             } as IAnchor);
@@ -101,9 +96,15 @@ const Puzzle: SFC<IPuzzle> = ({ inputs, width = 5, puzzle = PUZZLE }) => {
 
   return (
     <Canvas>
-      {anchors.map((anchor: IAnchor) => (
-        <Anchor key={`${anchor.x}${anchor.y}`} {...anchor} />
-      ))}
+      <g>
+        {anchors.map((anchor: IAnchor) => (
+          <Anchor
+            key={`${anchor.x}${anchor.y}`}
+            {...anchor}
+            lineLength={lineLength}
+          />
+        ))}
+      </g>
       {startPoint && <Line startAnchor={startPoint} inputs={inputs} />}
     </Canvas>
   );

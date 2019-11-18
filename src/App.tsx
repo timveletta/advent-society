@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Timer from "./components/Timer";
-import PuzzleContainer from "./components/PuzzleContainer";
+import PuzzleContainer from "./containers/PuzzleContainer";
 
 const App = () => {
   const targetDate: Date = new Date(2019, 11, 13, 9);
@@ -10,7 +10,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        {/* <Route path="/puzzle"> */}
         <Route>
           <PuzzleContainer />
         </Route>

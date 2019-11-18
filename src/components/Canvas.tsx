@@ -1,7 +1,8 @@
 import React, { SFC } from "react";
+import { SVG_WIDTH, SVG_HEIGHT } from "../constants";
 
 const Canvas: SFC<{ children: React.ReactNode }> = ({ children }) => {
-  const viewBox = [0, 0, 624, 624];
+  const viewBox = [0, 0, SVG_WIDTH, SVG_HEIGHT];
 
   return (
     <svg preserveAspectRatio="xMaxYMax meet" viewBox={`${viewBox}`}>
