@@ -4,7 +4,7 @@
 export type ModelPuzzleFilterInput = {
   id?: ModelIDFilterInput | null,
   map?: ModelStringFilterInput | null,
-  width?: ModelIntFilterInput | null,
+  columns?: ModelIntFilterInput | null,
   and?: Array< ModelPuzzleFilterInput | null > | null,
   or?: Array< ModelPuzzleFilterInput | null > | null,
   not?: ModelPuzzleFilterInput | null,
@@ -57,7 +57,7 @@ export type GetPuzzleQuery = {
     __typename: "Puzzle",
     id: string,
     map: string,
-    width: number | null,
+    columns: number,
   } | null,
 };
 
@@ -74,7 +74,7 @@ export type ListPuzzlesQuery = {
       __typename: "Puzzle",
       id: string,
       map: string,
-      width: number | null,
+      columns: number,
     } | null > | null,
     nextToken: string | null,
   } | null,

@@ -5,7 +5,7 @@ export const getPuzzle = `query GetPuzzle($id: ID!) {
   getPuzzle(id: $id) {
     id
     map
-    width
+    columns
   }
 }
 `;
@@ -18,7 +18,7 @@ export const listPuzzles = `query ListPuzzles(
     items {
       id
       map
-      width
+      columns
     }
     nextToken
   }

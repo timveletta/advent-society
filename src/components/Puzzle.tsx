@@ -30,7 +30,7 @@ const Puzzle: SFC<IPuzzle> = ({ inputs, columns, puzzleMap }) => {
         : (SVG_HEIGHT - MARGIN.top * 2 - LINE_WIDTH) /
           puzzleMap.length /
           columns;
-  }, [columns]);
+  }, [columns, puzzleMap]);
 
   useEffect(() => {
     const puzzleRows: string[] = puzzleMap.match(/.{1,9}/g) || [];
