@@ -1,10 +1,11 @@
-import React, { SFC, useContext, useState, useEffect } from "react";
+import React, { SFC, useState, useEffect } from "react";
 import { IAnchor } from "./Anchor";
 
 const Line: SFC<{
   startAnchor: IAnchor;
   inputs?: Array<"up" | "down" | "left" | "right">;
-}> = ({ startAnchor, inputs }) => {
+  lineColor: string;
+}> = ({ startAnchor, inputs, lineColor }) => {
   const [lineAnchors, setLineAnchors] = useState([startAnchor]);
 
   useEffect(() => {
@@ -70,23 +71,34 @@ const Line: SFC<{
         data-name="line-start"
         cx={startAnchor.x + 10}
         cy={startAnchor.y + 10}
-        r={40}
-        fill={"#ffef00"}
+        r={35}
+        fill={lineColor}
       />
       {lineAnchors.length > 1 &&
         lineAnchors.map(
           (anchor: IAnchor, index: number) =>
             index !== 0 && (
-              <line
-                key={index}
-                x1={lineAnchors[index - 1].x + 10}
-                y1={lineAnchors[index - 1].y + 10}
-                x2={anchor.x + 10}
-                y2={anchor.y + 10}
-                stroke={"#ffef00"}
-                strokeWidth={20}
-                strokeLinecap="round"
-              />
+              <g key={index}>
+                {anchor.isEnd && (
+                  <circle
+                    id="end-point"
+                    data-name="end-point"
+                    cx={anchor.x + 10}
+                    cy={anchor.y + 10}
+                    r={30}
+                    fill={lineColor}
+                  />
+                )}
+                <line
+                  x1={lineAnchors[index - 1].x + 10}
+                  y1={lineAnchors[index - 1].y + 10}
+                  x2={anchor.x + 10}
+                  y2={anchor.y + 10}
+                  stroke={lineColor}
+                  strokeWidth={20}
+                  strokeLinecap="round"
+                />
+              </g>
             )
         )}
     </>

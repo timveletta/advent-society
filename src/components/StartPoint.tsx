@@ -7,8 +7,8 @@ const StartPoint: SFC<{ x: number; y: number }> = ({ x, y }) => {
       data-name="start-point"
       cx={x + 10}
       cy={y + 10}
-      r={40}
-      fill={"gray"}
+      r={35}
+      fill={"white"}
     />
   );
 };

@@ -7,12 +7,12 @@ const EndPoint: SFC<{ x: number; y: number; isHorizontal?: boolean }> = ({
 }) => {
   return (
     <circle
-      id="start-point"
-      data-name="start-point"
+      id="end-point"
+      data-name="end-point"
       cx={x + 10}
       cy={y + 10}
       r={30}
-      fill={"gray"}
+      fill={"white"}
     />
   );
 };

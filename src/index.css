@@ -17,3 +17,7 @@ code {
   height: 100%;
   padding-top: 0 !important;
 }
+
+svg {
+  max-height: 55vh;
+}

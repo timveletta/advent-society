@@ -34,7 +34,7 @@ const Anchor: SFC<IAnchor> = ({
         y={y}
         width={LINE_WIDTH}
         height={LINE_WIDTH}
-        fill={"gray"}
+        fill={"white"}
       />
       {right && <Connector x={x} y={y} lineLength={lineLength} />}
       {down && (

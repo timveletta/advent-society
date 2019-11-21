@@ -13,9 +13,9 @@ const Connector: SFC<{
       data-name="connector"
       x={x}
       y={y}
-      width={isHorizontal ? lineLength : LINE_WIDTH}
-      height={isHorizontal ? LINE_WIDTH : lineLength}
-      fill={"gray"}
+      width={isHorizontal ? lineLength + 1 : LINE_WIDTH}
+      height={isHorizontal ? LINE_WIDTH : lineLength + 1}
+      fill={"white"}
     />
   );
 };

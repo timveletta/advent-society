@@ -13,6 +13,7 @@
     "aws-amplify-react": "^2.5.4",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
+    "react-icons": "^3.8.0",
     "react-qr-reader": "^2.2.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",

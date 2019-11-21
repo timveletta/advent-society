@@ -1,9 +1,15 @@
 import React, { SFC } from "react";
 import styled from "styled-components";
+import {
+  FaAngleUp,
+  FaAngleDown,
+  FaAngleLeft,
+  FaAngleRight
+} from "react-icons/fa";
 
 const Container = styled.div`
   width: 100%;
-  height: calc(100vh - 100vw);
+  height: 45vh;
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -11,6 +17,8 @@ const Container = styled.div`
 `;
 
 const Control = styled.button`
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
   grid-area: ${(p: { direction: string }) =>
     p.direction === "up"
       ? "1/2"
@@ -28,22 +36,29 @@ interface IControls {
   onDown: () => void;
   onLeft: () => void;
   onRight: () => void;
+  color?: string;
 }
 
-const Controls: SFC<IControls> = ({ onUp, onDown, onLeft, onRight }) => {
+const Controls: SFC<IControls> = ({
+  onUp,
+  onDown,
+  onLeft,
+  onRight,
+  color = "#ffffff"
+}) => {
   return (
     <Container>
       <Control onClick={() => onUp()} direction={"up"}>
-        Up
+        <FaAngleUp size={"5rem"} color={color} />
       </Control>
       <Control onClick={() => onLeft()} direction={"left"}>
-        Left
+        <FaAngleLeft size={"5rem"} color={color} />
       </Control>
       <Control onClick={() => onRight()} direction={"right"}>
-        Right
+        <FaAngleRight size={"5rem"} color={color} />
       </Control>
       <Control onClick={() => onDown()} direction={"down"}>
-        Down
+        <FaAngleDown size={"5rem"} color={color} />
       </Control>
     </Container>
   );
