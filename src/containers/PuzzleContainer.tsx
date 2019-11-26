@@ -9,8 +9,16 @@ import { IConnectState } from "aws-amplify-react/lib-esm/API/GraphQL/Connect";
 import { GetPuzzleQuery, GetPuzzleQueryVariables } from "../API";
 
 const Container = styled.div`
-  background-color: ${(p: { backgroundColor: string }) => p.backgroundColor};
+  background-color: ${(p: { backgroundColor?: string }) =>
+    p.backgroundColor || "#3c3c3c"};
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > h3 {
+    color: #ffffff;
+  }
 `;
 
 /**
@@ -36,8 +44,20 @@ const PuzzleContainer = () => {
       } as GetPuzzleQueryVariables)}
     >
       {({ data, loading, errors }: IConnectState) => {
-        if (errors.length > 0) return <h3>Errors</h3>;
-        if (loading) return <h3>Loading</h3>;
+        if (errors.length > 0)
+          return (
+            <Container>
+              {errors.map(({ message }: { message: string }, index: number) => (
+                <h3 key={index}>{message}</h3>
+              ))}
+            </Container>
+          );
+        if (loading)
+          return (
+            <Container>
+              <h3>Loading...</h3>
+            </Container>
+          );
 
         const { getPuzzle: puzzle } = data as GetPuzzleQuery;
 
