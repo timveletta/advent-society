@@ -1,20 +1,19 @@
 import React, { SFC } from "react";
-import { LINE_WIDTH } from "../constants";
+import { LINE_WIDTH, LINE_LENGTH } from "../constants";
 
 const Connector: SFC<{
   x: number;
   y: number;
-  lineLength: number;
   isHorizontal?: boolean;
-}> = ({ x, y, lineLength, isHorizontal = true }) => {
+}> = ({ x, y, isHorizontal = true }) => {
   return (
     <rect
       id="connector"
       data-name="connector"
       x={x}
       y={y}
-      width={isHorizontal ? lineLength + 1 : LINE_WIDTH}
-      height={isHorizontal ? LINE_WIDTH : lineLength + 1}
+      width={isHorizontal ? LINE_LENGTH + 1 : LINE_WIDTH}
+      height={isHorizontal ? LINE_WIDTH : LINE_LENGTH + 1}
       fill={"white"}
     />
   );

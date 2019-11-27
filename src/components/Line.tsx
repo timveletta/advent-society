@@ -5,7 +5,9 @@ const Line: SFC<{
   startAnchor: IAnchor;
   inputs?: Array<"up" | "down" | "left" | "right">;
   lineColor: string;
-}> = ({ startAnchor, inputs, lineColor }) => {
+  solution: Array<{ x: number; y: number } | null>;
+  onPuzzleSolved: () => void;
+}> = ({ startAnchor, inputs, lineColor, solution, onPuzzleSolved }) => {
   const [lineAnchors, setLineAnchors] = useState([startAnchor]);
 
   useEffect(() => {
@@ -55,12 +57,26 @@ const Line: SFC<{
         const a = prev.concat([nextAnchor]);
         return a;
       });
+      if (nextAnchor.isEnd) {
+        checkSolution();
+      }
     } else if (
       nextAnchor &&
       lineAnchors.findIndex((a: IAnchor) => a === nextAnchor) ===
         lineAnchors.length - 2
     ) {
       setLineAnchors((prev: IAnchor[]) => prev.slice(0, -1));
+    }
+  };
+
+  const checkSolution = () => {
+    if (
+      !lineAnchors.find((a: IAnchor, index: number) => {
+        const coordinate = solution[index] || { x: -1, y: -1 };
+        return coordinate.x === a.x && coordinate.y === a.y;
+      })
+    ) {
+      onPuzzleSolved();
     }
   };
 

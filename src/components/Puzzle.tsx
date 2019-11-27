@@ -2,12 +2,14 @@ import React, { useState, useEffect, useMemo, FC } from "react";
 import Canvas from "./Canvas";
 import Anchor, { IAnchor } from "./Anchor";
 import Line from "./Line";
-import { MARGIN, LINE_WIDTH } from "../constants";
+import { MARGIN, LINE_WIDTH, LINE_LENGTH } from "../constants";
 
 interface IPuzzle {
   inputs: Array<"up" | "down" | "left" | "right">;
   columns: number;
   puzzleMap: string;
+  solution: Array<{ x: number; y: number } | null>;
+  onPuzzleSolved: () => void;
   color?: string;
   borderColor?: string;
   lineColor?: string;
@@ -17,6 +19,8 @@ const Puzzle: FC<IPuzzle> = ({
   inputs,
   columns,
   puzzleMap,
+  solution,
+  onPuzzleSolved,
   color = "#ffffff",
   borderColor = "#000000",
   lineColor = "#ffef00"
@@ -24,15 +28,14 @@ const Puzzle: FC<IPuzzle> = ({
   const [anchors, setAnchors] = useState<IAnchor[]>([]);
   const anchorColumns: number[] = [];
   const anchorRows: number[] = [];
-  const lineLength: number = 128;
 
   useEffect(() => {
     const rows = Math.ceil(puzzleMap.length / (columns * 2 - 1) / 2);
     for (let i = 0; i < columns; i++) {
-      anchorColumns.push(i * lineLength);
+      anchorColumns.push(i * LINE_LENGTH);
     }
     for (let i = 0; i < rows; i++) {
-      anchorRows.push(i * lineLength);
+      anchorRows.push(i * LINE_LENGTH);
     }
   }, [columns, puzzleMap]);
 
@@ -52,6 +55,8 @@ const Puzzle: FC<IPuzzle> = ({
             anchorsList.push({
               x: anchorColumns[anchorsList.length] + MARGIN.left,
               y: anchorRows[yIndex] + MARGIN.top,
+              xIndex: anchorsList.length,
+              yIndex,
               isStart: identifier === "S",
               isEnd: identifier === "E"
             } as IAnchor);
@@ -103,34 +108,36 @@ const Puzzle: FC<IPuzzle> = ({
   );
 
   return (
-    <Canvas width={columns * LINE_WIDTH + 2 * MARGIN.left}>
+    <Canvas width={columns * LINE_LENGTH + 2 * MARGIN.left}>
       <defs>
         <g id="map">
           {anchors.map((anchor: IAnchor) => (
-            <Anchor
-              key={`${anchor.x}${anchor.y}`}
-              {...anchor}
-              lineLength={lineLength}
-            />
+            <Anchor key={`${anchor.x}${anchor.y}`} {...anchor} />
           ))}
         </g>
         <linearGradient id="bg" gradientUnits="userSpaceOnUse">
-          <stop offset="" style={{ stopColor: color }} />
+          <stop offset="0" style={{ stopColor: color }} />
         </linearGradient>
         <mask id="mapMask">
           <use xlinkHref="#map" />
         </mask>
       </defs>
-      <use xlinkHref="#map" stroke={borderColor} stroke-width="15" />
+      <use xlinkHref="#map" stroke={borderColor} strokeWidth="15" />
       <rect
         id="bg"
         fill="url(#bg)"
-        width={columns * LINE_WIDTH + 2 * MARGIN.left}
+        width={columns * LINE_LENGTH + 2 * MARGIN.left}
         height="600"
         mask="url(#mapMask)"
       />
       {startPoint && (
-        <Line startAnchor={startPoint} inputs={inputs} lineColor={lineColor} />
+        <Line
+          startAnchor={startPoint}
+          inputs={inputs}
+          lineColor={lineColor}
+          solution={solution}
+          onPuzzleSolved={onPuzzleSolved}
+        />
       )}
     </Canvas>
   );

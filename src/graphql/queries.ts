@@ -6,6 +6,10 @@ export const getPuzzle = `query GetPuzzle($id: ID!) {
     id
     map
     columns
+    solution {
+      x
+      y
+    }
   }
 }
 `;
@@ -19,6 +23,10 @@ export const listPuzzles = `query ListPuzzles(
       id
       map
       columns
+      solution {
+        x
+        y
+      }
     }
     nextToken
   }

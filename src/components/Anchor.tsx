@@ -6,8 +6,9 @@ import { LINE_WIDTH } from "../constants";
 
 export interface IAnchor {
   x: number;
+  xIndex: number;
   y: number;
-  lineLength: number;
+  yIndex: number;
   up?: IAnchor;
   down?: IAnchor;
   left?: IAnchor;
@@ -19,7 +20,6 @@ export interface IAnchor {
 const Anchor: SFC<IAnchor> = ({
   x,
   y,
-  lineLength,
   down,
   right,
   isStart = false,
@@ -36,10 +36,8 @@ const Anchor: SFC<IAnchor> = ({
         height={LINE_WIDTH}
         fill={"white"}
       />
-      {right && <Connector x={x} y={y} lineLength={lineLength} />}
-      {down && (
-        <Connector x={x} y={y} lineLength={lineLength} isHorizontal={false} />
-      )}
+      {right && <Connector x={x} y={y} />}
+      {down && <Connector x={x} y={y} isHorizontal={false} />}
       {isStart && <StartPoint x={x} y={y} />}
       {isEnd && <EndPoint x={x} y={y} />}
     </>

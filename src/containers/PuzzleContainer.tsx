@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { Connect } from "aws-amplify-react";
 import { graphqlOperation } from "aws-amplify";
 import styled from "styled-components";
@@ -10,11 +11,8 @@ import { GetPuzzleQuery, GetPuzzleQueryVariables } from "../API";
 
 const Container = styled.div`
   background-color: ${(p: { backgroundColor?: string }) =>
-    p.backgroundColor || "#3c3c3c"};
+    p.backgroundColor || "#333"};
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   > h3 {
     color: #ffffff;
@@ -28,7 +26,8 @@ const Container = styled.div`
  * A - anchor
  * 0 - empty
  */
-const PuzzleContainer = () => {
+const PuzzleContainer: React.FC = () => {
+  const { id } = useParams();
   const [inputs, setInputs] = useState<Array<"up" | "down" | "left" | "right">>(
     []
   );
@@ -37,10 +36,14 @@ const PuzzleContainer = () => {
     setInputs(i => i.concat([input]));
   };
 
+  const onPuzzleSolved = () => {
+    console.log("puzzle solved");
+  };
+
   return (
     <Connect
       query={graphqlOperation(getPuzzle, {
-        id: "5678"
+        id
       } as GetPuzzleQueryVariables)}
     >
       {({ data, loading, errors }: IConnectState) => {
@@ -67,6 +70,8 @@ const PuzzleContainer = () => {
               inputs={inputs}
               puzzleMap={puzzle.map}
               columns={puzzle.columns}
+              solution={puzzle.solution.map(c => c && { x: c.x, y: c.y })}
+              onPuzzleSolved={onPuzzleSolved}
             />
             <Controls
               color={"#ffffff"}

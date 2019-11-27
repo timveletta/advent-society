@@ -1,5 +1,11 @@
-type Puzzle @model(mutations: null, subscriptions: null) {
+type Puzzle @model(subscriptions: null) {
   id: ID!
   map: String!
   columns: Int!
+  solution: [Coordinates]!
+}
+
+type Coordinates {
+  x: Int!
+  y: Int!
 }

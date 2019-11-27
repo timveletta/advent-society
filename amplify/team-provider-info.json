@@ -1,14 +1,14 @@
 {
     "prod": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-advent-society-prod-92540-authRole",
-            "UnauthRoleArn": "arn:aws:iam::722888183710:role/amplify-advent-society-prod-92540-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::722888183710:role/amplify-advent-society-prod-92540-authRole",
+            "AuthRoleName": "amplify-advent-society-prod-205613-authRole",
+            "UnauthRoleArn": "arn:aws:iam::722888183710:role/amplify-advent-society-prod-205613-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::722888183710:role/amplify-advent-society-prod-205613-authRole",
             "Region": "ap-southeast-2",
-            "DeploymentBucketName": "amplify-advent-society-prod-92540-deployment",
-            "UnauthRoleName": "amplify-advent-society-prod-92540-unauthRole",
-            "StackName": "amplify-advent-society-prod-92540",
-            "StackId": "arn:aws:cloudformation:ap-southeast-2:722888183710:stack/amplify-advent-society-prod-92540/55e14500-09a2-11ea-a1f8-020915aaddf4"
+            "DeploymentBucketName": "amplify-advent-society-prod-205613-deployment",
+            "UnauthRoleName": "amplify-advent-society-prod-205613-unauthRole",
+            "StackName": "amplify-advent-society-prod-205613",
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:722888183710:stack/amplify-advent-society-prod-205613/4b6495d0-1115-11ea-8b0d-0aa7af0536b6"
         }
     }
 }

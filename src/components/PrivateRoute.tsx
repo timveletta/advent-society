@@ -1,10 +1,7 @@
-import React, { SFC } from "react";
+import React, { FC } from "react";
 import { Route, Redirect } from "react-router-dom";
 
-const PrivateRoute: SFC<{ children: React.ReactNode; rest: any }> = ({
-  children,
-  ...rest
-}) => (
+const PrivateRoute: FC<any> = ({ children, ...rest }) => (
   <Route
     {...rest}
     render={({ location }) =>
