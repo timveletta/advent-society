@@ -47,27 +47,38 @@ const Puzzle: FC<IPuzzle> = ({
     }
     // create anchor objects
     const anchorMap = puzzleRows
-      .filter((v, index) => index % 2 === 0) // only include event indexes for now
-      .map((row: string, yIndex: number) => {
-        const anchorsList: IAnchor[] = [];
-        row.split("").forEach((identifier: string) => {
-          if (identifier === "A" || identifier === "S" || identifier === "E") {
-            anchorsList.push({
-              x: anchorColumns[anchorsList.length] + MARGIN.left,
-              y: anchorRows[yIndex] + MARGIN.top,
-              xIndex: anchorsList.length,
-              yIndex,
-              isStart: identifier === "S",
-              isEnd: identifier === "E"
-            } as IAnchor);
-          }
-        });
-        return anchorsList;
-      });
+      .filter((v, index) => index % 2 === 0) // only include even indexes for now
+      .map((row: string, yIndex: number) =>
+        row
+          .split("")
+          .filter((v, index) => index % 2 === 0) // only include even indexes for now
+          .map((identifier: string, xIndex: number) => {
+            if (
+              identifier === "A" ||
+              identifier === "S" ||
+              identifier === "E"
+            ) {
+              return {
+                x: anchorColumns[xIndex] + MARGIN.left,
+                y: anchorRows[yIndex] + MARGIN.top,
+                xIndex,
+                yIndex,
+                isStart: identifier === "S",
+                isEnd: identifier === "E"
+              } as IAnchor;
+            }
+          })
+      );
+
+    debugger;
 
     // link anchors based on whether they are connected
-    anchorMap.forEach((row: IAnchor[], yIndex: number) => {
-      row.forEach((anchor: IAnchor, xIndex: number) => {
+    anchorMap.forEach((row: (IAnchor | undefined)[], yIndex: number) => {
+      row.forEach((anchor: IAnchor | undefined, xIndex: number) => {
+        if (!anchor) {
+          return;
+        }
+
         // check right
         if (xIndex + 1 < anchorMap[yIndex].length) {
           anchor.right =
@@ -99,7 +110,11 @@ const Puzzle: FC<IPuzzle> = ({
       });
     });
 
-    setAnchors(anchorMap.flat());
+    const filteredAnchors: IAnchor[] = anchorMap
+      .flat()
+      .filter((anchor): anchor is IAnchor => anchor !== undefined);
+
+    setAnchors(filteredAnchors);
   }, []);
 
   const startPoint: IAnchor | undefined = useMemo(
@@ -108,7 +123,7 @@ const Puzzle: FC<IPuzzle> = ({
   );
 
   return (
-    <Canvas width={columns * LINE_LENGTH + 2 * MARGIN.left}>
+    <Canvas width={(columns - 1) * LINE_LENGTH + 2 * MARGIN.left}>
       <defs>
         <g id="map">
           {anchors.map((anchor: IAnchor) => (

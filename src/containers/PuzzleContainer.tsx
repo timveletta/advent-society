@@ -13,8 +13,14 @@ const Container = styled.div`
   background-color: ${(p: { backgroundColor?: string }) =>
     p.backgroundColor || "#333"};
   height: 100vh;
+`;
 
-  > h3 {
+const MessageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
     color: #ffffff;
   }
 `;
@@ -49,17 +55,17 @@ const PuzzleContainer: React.FC = () => {
       {({ data, loading, errors }: IConnectState) => {
         if (errors.length > 0)
           return (
-            <Container>
+            <MessageContainer>
               {errors.map(({ message }: { message: string }, index: number) => (
                 <h3 key={index}>{message}</h3>
               ))}
-            </Container>
+            </MessageContainer>
           );
         if (loading)
           return (
-            <Container>
+            <MessageContainer>
               <h3>Loading...</h3>
-            </Container>
+            </MessageContainer>
           );
 
         const { getPuzzle: puzzle } = data as GetPuzzleQuery;
@@ -82,7 +88,9 @@ const PuzzleContainer: React.FC = () => {
             />
           </Container>
         ) : (
-          <h3>No puzzle found with that ID.</h3>
+          <MessageContainer>
+            <h3>No puzzle found with that ID.</h3>
+          </MessageContainer>
         );
       }}
     </Connect>

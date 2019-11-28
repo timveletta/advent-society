@@ -71,6 +71,7 @@ const Line: SFC<{
 
   const checkSolution = () => {
     if (
+      lineAnchors.length === solution.length &&
       !lineAnchors.find((a: IAnchor, index: number) => {
         const coordinate = solution[index] || { x: -1, y: -1 };
         return coordinate.x === a.x && coordinate.y === a.y;
