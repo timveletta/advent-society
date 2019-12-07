@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { Connect } from "aws-amplify-react";
 import { graphqlOperation } from "aws-amplify";
 import styled from "styled-components";
+import Explosion from "react-explode/Explosion1";
 import Puzzle from "../components/Puzzle";
 import Controls from "../components/Controls";
 import { getPuzzle } from "../graphql/queries";
@@ -33,17 +34,23 @@ const MessageContainer = styled.div`
  * 0 - empty
  */
 const PuzzleContainer: React.FC = () => {
+  const history = useHistory();
   const { id } = useParams();
   const [inputs, setInputs] = useState<Array<"up" | "down" | "left" | "right">>(
     []
   );
+  const [isPuzzleSolved, setIsPuzzleSolved] = useState<boolean>(false);
 
   const addInput = (input: "up" | "down" | "left" | "right") => {
     setInputs(i => i.concat([input]));
   };
 
   const onPuzzleSolved = () => {
-    console.log("puzzle solved");
+    setIsPuzzleSolved(true);
+  };
+
+  const onExplosionComplete = () => {
+    history.push("/dashboard");
   };
 
   return (
@@ -72,20 +79,32 @@ const PuzzleContainer: React.FC = () => {
 
         return puzzle ? (
           <Container backgroundColor="#0984e3">
-            <Puzzle
-              inputs={inputs}
-              puzzleMap={puzzle.map}
-              columns={puzzle.columns}
-              solution={puzzle.solution.map(c => c && { x: c.x, y: c.y })}
-              onPuzzleSolved={onPuzzleSolved}
-            />
-            <Controls
-              color={"#ffffff"}
-              onUp={() => addInput("up")}
-              onDown={() => addInput("down")}
-              onLeft={() => addInput("left")}
-              onRight={() => addInput("right")}
-            />
+            {isPuzzleSolved ? (
+              <Explosion
+                size={window.innerWidth}
+                delay={0}
+                repeatDelay={0.1}
+                repeat={5}
+                onComplete={() => onExplosionComplete()}
+              />
+            ) : (
+              <>
+                <Puzzle
+                  inputs={inputs}
+                  puzzleMap={puzzle.map}
+                  columns={puzzle.columns}
+                  solution={puzzle.solution.map(c => c && { x: c.x, y: c.y })}
+                  onPuzzleSolved={onPuzzleSolved}
+                />
+                <Controls
+                  color={"#ffffff"}
+                  onUp={() => addInput("up")}
+                  onDown={() => addInput("down")}
+                  onLeft={() => addInput("left")}
+                  onRight={() => addInput("right")}
+                />
+              </>
+            )}
           </Container>
         ) : (
           <MessageContainer>

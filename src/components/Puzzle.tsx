@@ -70,8 +70,6 @@ const Puzzle: FC<IPuzzle> = ({
           })
       );
 
-    debugger;
-
     // link anchors based on whether they are connected
     anchorMap.forEach((row: (IAnchor | undefined)[], yIndex: number) => {
       row.forEach((anchor: IAnchor | undefined, xIndex: number) => {

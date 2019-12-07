@@ -3,9 +3,24 @@ type Puzzle @model(subscriptions: null) {
   map: String!
   columns: Int!
   solution: [Coordinates]!
+  day: Int
+  isComplete: Boolean
+  colors: Colors
+  details: Details
 }
 
 type Coordinates {
   x: Int!
   y: Int!
+}
+
+type Colors {
+  background: String
+  primary: String
+  secondary: String
+  line: String
+}
+
+type Details {
+  collect: [Coordinates]
 }

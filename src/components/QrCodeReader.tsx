@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import QrReader from "react-qr-reader";
 
 //TODO refactor into a functional component
-export default function QrCodeReader() {
+const QrCodeReader = () => {
   const [qrCode, setQrCode] = useState(null);
   let width = window.innerWidth,
     height = window.innerHeight;
 
   useEffect(() => {
     console.log(qrCode);
+    // TODO if its a valid puzzle then redirect to the page
   }, [qrCode]);
 
   return (
@@ -22,4 +23,6 @@ export default function QrCodeReader() {
       Something on the screen
     </QrReader>
   );
-}
+};
+
+export default QrCodeReader;

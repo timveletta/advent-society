@@ -70,6 +70,9 @@ const Line: SFC<{
   };
 
   const checkSolution = () => {
+    console.log(
+      lineAnchors.map((a: IAnchor) => `{ x: ${a.xIndex}, y: ${a.yIndex} }`)
+    );
     if (
       lineAnchors.length === solution.length &&
       !lineAnchors.find((a: IAnchor, index: number) => {
@@ -78,6 +81,8 @@ const Line: SFC<{
       })
     ) {
       onPuzzleSolved();
+    } else {
+      // TODO do something when you have the incorrect solution
     }
   };
 
