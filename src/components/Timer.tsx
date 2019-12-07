@@ -10,6 +10,7 @@ const Container = styled.div`
   background-color: #333;
   max-width: 400px;
   margin: 0 auto;
+  text-align: center;
 `;
 
 const Interval = styled.div`
