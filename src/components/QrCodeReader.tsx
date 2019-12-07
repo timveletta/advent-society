@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import QrReader from "react-qr-reader";
 
-//TODO refactor into a functional component
 const QrCodeReader = () => {
-  const [qrCode, setQrCode] = useState(null);
+  const history = useHistory();
+  const [qrCode, setQrCode] = useState("");
   let width = window.innerWidth,
     height = window.innerHeight;
 
   useEffect(() => {
     console.log(qrCode);
-    // TODO if its a valid puzzle then redirect to the page
+    if (qrCode && qrCode.match(/^puzzle-/)) {
+      const puzzleId = qrCode.split("puzzle-")[1];
+      history.push(`/puzzle/${puzzleId}`);
+    }
   }, [qrCode]);
 
   return (
@@ -19,9 +23,7 @@ const QrCodeReader = () => {
       showViewFinder={true}
       className="qr-code-reader"
       style={{ width, height }}
-    >
-      Something on the screen
-    </QrReader>
+    ></QrReader>
   );
 };
 
