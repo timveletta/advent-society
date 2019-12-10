@@ -6,6 +6,10 @@ export type CreatePuzzleInput = {
   map: string,
   columns: number,
   solution: Array< CoordinatesInput | null >,
+  currentDay?: number | null,
+  isComplete?: boolean | null,
+  colors?: ColorsInput | null,
+  details?: DetailsInput | null,
 };
 
 export type CoordinatesInput = {
@@ -13,11 +17,26 @@ export type CoordinatesInput = {
   y: number,
 };
 
+export type ColorsInput = {
+  background?: string | null,
+  primary?: string | null,
+  secondary?: string | null,
+  line?: string | null,
+};
+
+export type DetailsInput = {
+  collect?: Array< CoordinatesInput | null > | null,
+};
+
 export type UpdatePuzzleInput = {
   id: string,
   map?: string | null,
   columns?: number | null,
   solution?: Array< CoordinatesInput | null > | null,
+  currentDay?: number | null,
+  isComplete?: boolean | null,
+  colors?: ColorsInput | null,
+  details?: DetailsInput | null,
 };
 
 export type DeletePuzzleInput = {
@@ -28,6 +47,8 @@ export type ModelPuzzleFilterInput = {
   id?: ModelIDFilterInput | null,
   map?: ModelStringFilterInput | null,
   columns?: ModelIntFilterInput | null,
+  currentDay?: ModelIntFilterInput | null,
+  isComplete?: ModelBooleanFilterInput | null,
   and?: Array< ModelPuzzleFilterInput | null > | null,
   or?: Array< ModelPuzzleFilterInput | null > | null,
   not?: ModelPuzzleFilterInput | null,
@@ -71,6 +92,46 @@ export type ModelIntFilterInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelBooleanFilterInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+};
+
+export type PuzzleCompleteMutationVariables = {
+  id: string,
+};
+
+export type PuzzleCompleteMutation = {
+  puzzleComplete:  {
+    __typename: "Puzzle",
+    id: string,
+    map: string,
+    columns: number,
+    solution:  Array< {
+      __typename: "Coordinates",
+      x: number,
+      y: number,
+    } | null >,
+    currentDay: number | null,
+    isComplete: boolean | null,
+    colors:  {
+      __typename: "Colors",
+      background: string | null,
+      primary: string | null,
+      secondary: string | null,
+      line: string | null,
+    } | null,
+    details:  {
+      __typename: "Details",
+      collect:  Array< {
+        __typename: "Coordinates",
+        x: number,
+        y: number,
+      } | null > | null,
+    } | null,
+  } | null,
+};
+
 export type CreatePuzzleMutationVariables = {
   input: CreatePuzzleInput,
 };
@@ -86,6 +147,23 @@ export type CreatePuzzleMutation = {
       x: number,
       y: number,
     } | null >,
+    currentDay: number | null,
+    isComplete: boolean | null,
+    colors:  {
+      __typename: "Colors",
+      background: string | null,
+      primary: string | null,
+      secondary: string | null,
+      line: string | null,
+    } | null,
+    details:  {
+      __typename: "Details",
+      collect:  Array< {
+        __typename: "Coordinates",
+        x: number,
+        y: number,
+      } | null > | null,
+    } | null,
   } | null,
 };
 
@@ -104,6 +182,23 @@ export type UpdatePuzzleMutation = {
       x: number,
       y: number,
     } | null >,
+    currentDay: number | null,
+    isComplete: boolean | null,
+    colors:  {
+      __typename: "Colors",
+      background: string | null,
+      primary: string | null,
+      secondary: string | null,
+      line: string | null,
+    } | null,
+    details:  {
+      __typename: "Details",
+      collect:  Array< {
+        __typename: "Coordinates",
+        x: number,
+        y: number,
+      } | null > | null,
+    } | null,
   } | null,
 };
 
@@ -122,7 +217,59 @@ export type DeletePuzzleMutation = {
       x: number,
       y: number,
     } | null >,
+    currentDay: number | null,
+    isComplete: boolean | null,
+    colors:  {
+      __typename: "Colors",
+      background: string | null,
+      primary: string | null,
+      secondary: string | null,
+      line: string | null,
+    } | null,
+    details:  {
+      __typename: "Details",
+      collect:  Array< {
+        __typename: "Coordinates",
+        x: number,
+        y: number,
+      } | null > | null,
+    } | null,
   } | null,
+};
+
+export type PuzzlesForDayQueryVariables = {
+  day: number,
+};
+
+export type PuzzlesForDayQuery = {
+  puzzlesForDay:  Array< {
+    __typename: "Puzzle",
+    id: string,
+    map: string,
+    columns: number,
+    solution:  Array< {
+      __typename: "Coordinates",
+      x: number,
+      y: number,
+    } | null >,
+    currentDay: number | null,
+    isComplete: boolean | null,
+    colors:  {
+      __typename: "Colors",
+      background: string | null,
+      primary: string | null,
+      secondary: string | null,
+      line: string | null,
+    } | null,
+    details:  {
+      __typename: "Details",
+      collect:  Array< {
+        __typename: "Coordinates",
+        x: number,
+        y: number,
+      } | null > | null,
+    } | null,
+  } | null > | null,
 };
 
 export type GetPuzzleQueryVariables = {
@@ -140,6 +287,23 @@ export type GetPuzzleQuery = {
       x: number,
       y: number,
     } | null >,
+    currentDay: number | null,
+    isComplete: boolean | null,
+    colors:  {
+      __typename: "Colors",
+      background: string | null,
+      primary: string | null,
+      secondary: string | null,
+      line: string | null,
+    } | null,
+    details:  {
+      __typename: "Details",
+      collect:  Array< {
+        __typename: "Coordinates",
+        x: number,
+        y: number,
+      } | null > | null,
+    } | null,
   } | null,
 };
 
@@ -162,6 +326,15 @@ export type ListPuzzlesQuery = {
         x: number,
         y: number,
       } | null >,
+      currentDay: number | null,
+      isComplete: boolean | null,
+      colors:  {
+        __typename: "Colors",
+        background: string | null,
+        primary: string | null,
+        secondary: string | null,
+        line: string | null,
+      } | null,
     } | null > | null,
     nextToken: string | null,
   } | null,

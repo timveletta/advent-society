@@ -1,9 +1,17 @@
+type Query {
+  puzzlesForDay(day: Int!): [Puzzle] @function(name: "getPuzzlesForDay-${env}")
+}
+
+type Mutation {
+  puzzleComplete(id: ID!): Puzzle @function(name: "puzzleComplete-${env}")
+}
+
 type Puzzle @model(subscriptions: null) {
   id: ID!
   map: String!
   columns: Int!
   solution: [Coordinates]!
-  day: Int
+  currentDay: Int
   isComplete: Boolean
   colors: Colors
   details: Details

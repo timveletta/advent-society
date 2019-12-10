@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { Connect } from "aws-amplify-react";
-import { graphqlOperation } from "aws-amplify";
+import { graphqlOperation, API } from "aws-amplify";
 import styled from "styled-components";
 import Explosion from "react-explode/Explosion1";
 import Puzzle from "../components/Puzzle";
@@ -9,10 +9,9 @@ import Controls from "../components/Controls";
 import { getPuzzle } from "../graphql/queries";
 import { IConnectState } from "aws-amplify-react/lib-esm/API/GraphQL/Connect";
 import { GetPuzzleQuery, GetPuzzleQueryVariables } from "../API";
+import { puzzleComplete } from "../graphql/mutations";
 
 const Container = styled.div`
-  background-color: ${(p: { backgroundColor?: string }) =>
-    p.backgroundColor || "#333"};
   height: 100vh;
 `;
 
@@ -49,7 +48,12 @@ const PuzzleContainer: React.FC = () => {
     setIsPuzzleSolved(true);
   };
 
-  const onExplosionComplete = () => {
+  const onExplosionComplete = async () => {
+    await API.graphql(
+      graphqlOperation(puzzleComplete, {
+        id
+      })
+    );
     history.push("/dashboard");
   };
 
@@ -78,14 +82,14 @@ const PuzzleContainer: React.FC = () => {
         const { getPuzzle: puzzle } = data as GetPuzzleQuery;
 
         return puzzle ? (
-          <Container backgroundColor="#0984e3">
+          <Container>
             {isPuzzleSolved ? (
               <Explosion
                 size={window.innerWidth}
                 delay={0}
                 repeatDelay={0.1}
                 repeat={5}
-                onComplete={() => onExplosionComplete()}
+                onComplete={async () => await onExplosionComplete()}
               />
             ) : (
               <>

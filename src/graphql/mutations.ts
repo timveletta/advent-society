@@ -1,6 +1,32 @@
 // tslint:disable
 // this is an auto generated file. This will be overwritten
 
+export const puzzleComplete = `mutation PuzzleComplete($id: ID!) {
+  puzzleComplete(id: $id) {
+    id
+    map
+    columns
+    solution {
+      x
+      y
+    }
+    currentDay
+    isComplete
+    colors {
+      background
+      primary
+      secondary
+      line
+    }
+    details {
+      collect {
+        x
+        y
+      }
+    }
+  }
+}
+`;
 export const createPuzzle = `mutation CreatePuzzle($input: CreatePuzzleInput!) {
   createPuzzle(input: $input) {
     id
@@ -9,6 +35,20 @@ export const createPuzzle = `mutation CreatePuzzle($input: CreatePuzzleInput!) {
     solution {
       x
       y
+    }
+    currentDay
+    isComplete
+    colors {
+      background
+      primary
+      secondary
+      line
+    }
+    details {
+      collect {
+        x
+        y
+      }
     }
   }
 }
@@ -22,6 +62,20 @@ export const updatePuzzle = `mutation UpdatePuzzle($input: UpdatePuzzleInput!) {
       x
       y
     }
+    currentDay
+    isComplete
+    colors {
+      background
+      primary
+      secondary
+      line
+    }
+    details {
+      collect {
+        x
+        y
+      }
+    }
   }
 }
 `;
@@ -33,6 +87,20 @@ export const deletePuzzle = `mutation DeletePuzzle($input: DeletePuzzleInput!) {
     solution {
       x
       y
+    }
+    currentDay
+    isComplete
+    colors {
+      background
+      primary
+      secondary
+      line
+    }
+    details {
+      collect {
+        x
+        y
+      }
     }
   }
 }

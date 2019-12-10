@@ -2,6 +2,11 @@ import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import QrCodeReader from "../components/QrCodeReader";
 import { ReactComponent as QrCodeIcon } from "../qrcode.svg";
+import { Connect } from "aws-amplify-react";
+import { graphqlOperation } from "aws-amplify";
+import { IConnectState } from "aws-amplify-react/lib-esm/API/GraphQL/Connect";
+import { puzzlesForDay } from "../graphql/queries";
+import { PuzzlesForDayQuery } from "../API";
 
 const Container = styled.div`
   display: grid;
@@ -47,7 +52,7 @@ const QrButton = styled.button`
 
   > svg {
     width: 4rem;
-    fill: #fff;
+    fill: #2ecc71;
   }
 `;
 
@@ -55,29 +60,59 @@ const DashboardContainer = () => {
   const [isShowingQrScanner, setIsShowingQrScanner] = useState(false);
 
   const getDay = useCallback(() => {
-    // TODO implement
-    return 1;
+    return new Date().getDate() - 12;
   }, []);
 
   return isShowingQrScanner ? (
     <QrCodeReader />
   ) : (
-    <Container>
-      <div>
-        <DayContainer>Day {getDay()}</DayContainer>
-        <PuzzleTitle>Mazes</PuzzleTitle>
-      </div>
-      <div>
-        <LightText>You have completed</LightText>
-        <ScoreText>
-          0<span>/4</span>
-        </ScoreText>
-        <LightText>puzzles</LightText>
-      </div>
-      <QrButton onClick={() => setIsShowingQrScanner(true)}>
-        <QrCodeIcon />
-      </QrButton>
-    </Container>
+    <Connect
+      query={graphqlOperation(puzzlesForDay, {
+        day: getDay()
+      })}
+    >
+      {({ data, loading, errors }: IConnectState) => {
+        if (errors.length > 0)
+          return (
+            <Container>
+              {errors.map(({ message }: { message: string }, index: number) => (
+                <h3 key={index}>{message}</h3>
+              ))}
+            </Container>
+          );
+        if (loading)
+          return (
+            <Container>
+              <h3>Loading...</h3>
+            </Container>
+          );
+
+        const { puzzlesForDay: puzzles } = data as PuzzlesForDayQuery;
+        const numberComplete: number = puzzles
+          ? puzzles.filter(p => p && p.isComplete).length
+          : 0;
+
+        return (
+          <Container>
+            <div>
+              <DayContainer>Day {getDay()}</DayContainer>
+              <PuzzleTitle></PuzzleTitle>
+            </div>
+            <div>
+              <LightText>You have completed</LightText>
+              <ScoreText>
+                {numberComplete}
+                <span>/ {puzzles && puzzles.length}</span>
+              </ScoreText>
+              <LightText>puzzles</LightText>
+            </div>
+            <QrButton onClick={() => setIsShowingQrScanner(true)}>
+              <QrCodeIcon />
+            </QrButton>
+          </Container>
+        );
+      }}
+    </Connect>
   );
 };
 

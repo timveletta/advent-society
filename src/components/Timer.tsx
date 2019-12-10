@@ -7,7 +7,6 @@ const Container = styled.div`
   grid-template-columns: repeat(4, 1fr);
   height: 100vh;
   align-items: center;
-  background-color: #333;
   max-width: 400px;
   margin: 0 auto;
   text-align: center;

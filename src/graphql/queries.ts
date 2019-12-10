@@ -1,6 +1,32 @@
 // tslint:disable
 // this is an auto generated file. This will be overwritten
 
+export const puzzlesForDay = `query PuzzlesForDay($day: Int!) {
+  puzzlesForDay(day: $day) {
+    id
+    map
+    columns
+    solution {
+      x
+      y
+    }
+    currentDay
+    isComplete
+    colors {
+      background
+      primary
+      secondary
+      line
+    }
+    details {
+      collect {
+        x
+        y
+      }
+    }
+  }
+}
+`;
 export const getPuzzle = `query GetPuzzle($id: ID!) {
   getPuzzle(id: $id) {
     id
@@ -9,6 +35,20 @@ export const getPuzzle = `query GetPuzzle($id: ID!) {
     solution {
       x
       y
+    }
+    currentDay
+    isComplete
+    colors {
+      background
+      primary
+      secondary
+      line
+    }
+    details {
+      collect {
+        x
+        y
+      }
     }
   }
 }
@@ -26,6 +66,14 @@ export const listPuzzles = `query ListPuzzles(
       solution {
         x
         y
+      }
+      currentDay
+      isComplete
+      colors {
+        background
+        primary
+        secondary
+        line
       }
     }
     nextToken

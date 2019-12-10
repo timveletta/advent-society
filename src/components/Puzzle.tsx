@@ -22,8 +22,8 @@ const Puzzle: FC<IPuzzle> = ({
   solution,
   onPuzzleSolved,
   color = "#ffffff",
-  borderColor = "#000000",
-  lineColor = "#ffef00"
+  borderColor = "#333",
+  lineColor = "#2ecc71"
 }) => {
   const [anchors, setAnchors] = useState<IAnchor[]>([]);
   const anchorColumns: number[] = [];
