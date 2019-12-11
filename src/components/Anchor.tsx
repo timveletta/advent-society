@@ -15,6 +15,7 @@ export interface IAnchor {
   right?: IAnchor;
   isStart?: boolean;
   isEnd?: boolean;
+  hasCollect?: boolean;
 }
 
 const Anchor: SFC<IAnchor> = ({
@@ -23,7 +24,8 @@ const Anchor: SFC<IAnchor> = ({
   down,
   right,
   isStart = false,
-  isEnd = false
+  isEnd = false,
+  hasCollect = false
 }) => {
   return (
     <>
@@ -40,6 +42,16 @@ const Anchor: SFC<IAnchor> = ({
       {down && <Connector x={x} y={y} isHorizontal={false} />}
       {isStart && <StartPoint x={x} y={y} />}
       {isEnd && <EndPoint x={x} y={y} />}
+      {hasCollect && (
+        <circle
+          id={`collect-${x}${y}`}
+          data-name="collect"
+          cx={x + LINE_WIDTH / 2}
+          cy={y + LINE_WIDTH / 2}
+          r={LINE_WIDTH}
+          fill={"#333"}
+        />
+      )}
     </>
   );
 };

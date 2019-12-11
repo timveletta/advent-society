@@ -13,6 +13,7 @@ interface IPuzzle {
   color?: string;
   borderColor?: string;
   lineColor?: string;
+  collect: Array<{ x: number; y: number } | null> | null;
 }
 
 const Puzzle: FC<IPuzzle> = ({
@@ -22,8 +23,9 @@ const Puzzle: FC<IPuzzle> = ({
   solution,
   onPuzzleSolved,
   color = "#ffffff",
-  borderColor = "#333",
-  lineColor = "#2ecc71"
+  borderColor = "#fff",
+  lineColor = "#2ecc71",
+  collect = []
 }) => {
   const [anchors, setAnchors] = useState<IAnchor[]>([]);
   const anchorColumns: number[] = [];
@@ -64,7 +66,12 @@ const Puzzle: FC<IPuzzle> = ({
                 xIndex,
                 yIndex,
                 isStart: identifier === "S",
-                isEnd: identifier === "E"
+                isEnd: identifier === "E",
+                hasCollect:
+                  collect &&
+                  collect.find(
+                    c => c !== null && c.x === xIndex && c.y === yIndex
+                  )
               } as IAnchor;
             }
           })

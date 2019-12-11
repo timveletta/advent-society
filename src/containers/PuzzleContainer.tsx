@@ -99,6 +99,11 @@ const PuzzleContainer: React.FC = () => {
                   columns={puzzle.columns}
                   solution={puzzle.solution.map(c => c && { x: c.x, y: c.y })}
                   onPuzzleSolved={onPuzzleSolved}
+                  collect={
+                    puzzle.details &&
+                    puzzle.details.collect &&
+                    puzzle.details.collect.map(c => c && { x: c.x, y: c.y })
+                  }
                 />
                 <Controls
                   color={"#ffffff"}
