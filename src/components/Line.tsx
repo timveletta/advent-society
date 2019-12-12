@@ -73,13 +73,14 @@ const Line: SFC<{
     console.log(
       lineAnchors.map((a: IAnchor) => `{ x: ${a.xIndex}, y: ${a.yIndex} }`)
     );
-    if (
-      lineAnchors.length === solution.length &&
-      !lineAnchors.find((a: IAnchor, index: number) => {
-        const coordinate = solution[index] || { x: -1, y: -1 };
-        return coordinate.x === a.x && coordinate.y === a.y;
-      })
-    ) {
+    let isSolved = true;
+    lineAnchors.forEach((a: IAnchor, index: number) => {
+      const coordinate = solution[index] || { x: -1, y: -1 };
+      if (coordinate.x !== a.xIndex || coordinate.y !== a.yIndex) {
+        isSolved = false;
+      }
+    });
+    if (lineAnchors.length === solution.length && isSolved) {
       onPuzzleSolved();
     } else {
       // TODO do something when you have the incorrect solution
