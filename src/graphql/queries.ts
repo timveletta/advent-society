@@ -23,6 +23,11 @@ export const puzzlesForDay = `query PuzzlesForDay($day: Int!) {
         x
         y
       }
+      block {
+        x
+        y
+        color
+      }
     }
   }
 }
@@ -48,6 +53,11 @@ export const getPuzzle = `query GetPuzzle($id: ID!) {
       collect {
         x
         y
+      }
+      block {
+        x
+        y
+        color
       }
     }
   }

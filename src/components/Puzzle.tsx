@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, FC } from "react";
 import Canvas from "./Canvas";
 import Anchor, { IAnchor } from "./Anchor";
 import Line from "./Line";
-import { MARGIN, LINE_WIDTH, LINE_LENGTH } from "../constants";
+import { MARGIN, LINE_WIDTH, LINE_LENGTH, BLOCK_SIZE } from "../constants";
 
 interface IPuzzle {
   inputs: Array<"up" | "down" | "left" | "right">;
@@ -14,6 +14,7 @@ interface IPuzzle {
   borderColor?: string;
   lineColor?: string;
   collect: Array<{ x: number; y: number } | null> | null;
+  blocks?: Array<{ x: number; y: number; color: string } | null> | null;
 }
 
 const Puzzle: FC<IPuzzle> = ({
@@ -25,7 +26,8 @@ const Puzzle: FC<IPuzzle> = ({
   color = "#ffffff",
   borderColor = "#fff",
   lineColor = "#2ecc71",
-  collect = []
+  collect = [],
+  blocks = []
 }) => {
   const [anchors, setAnchors] = useState<IAnchor[]>([]);
   const anchorColumns: number[] = [];
@@ -159,6 +161,20 @@ const Puzzle: FC<IPuzzle> = ({
           onPuzzleSolved={onPuzzleSolved}
         />
       )}
+      {blocks &&
+        blocks.map(
+          (block, index) =>
+            block && (
+              <rect
+                key={index}
+                fill={block.color}
+                width={BLOCK_SIZE}
+                height={BLOCK_SIZE}
+                x={(block.x + 1) * LINE_LENGTH - LINE_LENGTH / 2 + LINE_WIDTH}
+                y={(block.y + 1) * LINE_LENGTH - LINE_LENGTH / 2 + LINE_WIDTH}
+              />
+            )
+        )}
     </Canvas>
   );
 };

@@ -29,6 +29,13 @@ type Colors {
   line: String
 }
 
+type Blocks {
+  x: Int!
+  y: Int!
+  color: String!
+}
+
 type Details {
   collect: [Coordinates]
+  block: [Blocks]
 }

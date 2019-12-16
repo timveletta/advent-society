@@ -23,6 +23,11 @@ export const puzzleComplete = `mutation PuzzleComplete($id: ID!) {
         x
         y
       }
+      block {
+        x
+        y
+        color
+      }
     }
   }
 }
@@ -48,6 +53,11 @@ export const createPuzzle = `mutation CreatePuzzle($input: CreatePuzzleInput!) {
       collect {
         x
         y
+      }
+      block {
+        x
+        y
+        color
       }
     }
   }
@@ -75,6 +85,11 @@ export const updatePuzzle = `mutation UpdatePuzzle($input: UpdatePuzzleInput!) {
         x
         y
       }
+      block {
+        x
+        y
+        color
+      }
     }
   }
 }
@@ -100,6 +115,11 @@ export const deletePuzzle = `mutation DeletePuzzle($input: DeletePuzzleInput!) {
       collect {
         x
         y
+      }
+      block {
+        x
+        y
+        color
       }
     }
   }

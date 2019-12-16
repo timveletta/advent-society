@@ -104,6 +104,18 @@ const PuzzleContainer: React.FC = () => {
                     puzzle.details.collect &&
                     puzzle.details.collect.map(c => c && { x: c.x, y: c.y })
                   }
+                  blocks={
+                    puzzle.details &&
+                    puzzle.details.block &&
+                    puzzle.details.block.map(
+                      b =>
+                        b && {
+                          x: b.x,
+                          y: b.y,
+                          color: b.color
+                        }
+                    )
+                  }
                 />
                 <Controls
                   color={"#ffffff"}
