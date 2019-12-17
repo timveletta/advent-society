@@ -3,6 +3,7 @@ import Canvas from "./Canvas";
 import Anchor, { IAnchor } from "./Anchor";
 import Line from "./Line";
 import { MARGIN, LINE_WIDTH, LINE_LENGTH, BLOCK_SIZE } from "../constants";
+import { ReactComponent as StarIcon } from "../star.svg";
 
 interface IPuzzle {
   inputs: Array<"up" | "down" | "left" | "right">;
@@ -15,6 +16,7 @@ interface IPuzzle {
   lineColor?: string;
   collect: Array<{ x: number; y: number } | null> | null;
   blocks?: Array<{ x: number; y: number; color: string } | null> | null;
+  stars?: Array<{ x: number; y: number; color: string } | null> | null;
 }
 
 const Puzzle: FC<IPuzzle> = ({
@@ -27,7 +29,8 @@ const Puzzle: FC<IPuzzle> = ({
   borderColor = "#fff",
   lineColor = "#2ecc71",
   collect = [],
-  blocks = []
+  blocks = [],
+  stars = []
 }) => {
   const [anchors, setAnchors] = useState<IAnchor[]>([]);
   const anchorColumns: number[] = [];
@@ -130,52 +133,72 @@ const Puzzle: FC<IPuzzle> = ({
   );
 
   return (
-    <Canvas width={(columns - 1) * LINE_LENGTH + 2 * MARGIN.left}>
-      <defs>
-        <g id="map">
-          {anchors.map((anchor: IAnchor) => (
-            <Anchor key={`${anchor.x}${anchor.y}`} {...anchor} />
-          ))}
-        </g>
-        <linearGradient id="bg" gradientUnits="userSpaceOnUse">
-          <stop offset="0" style={{ stopColor: color }} />
-        </linearGradient>
-        <mask id="mapMask">
-          <use xlinkHref="#map" />
-        </mask>
-      </defs>
-      <use xlinkHref="#map" stroke={borderColor} strokeWidth="15" />
-      <rect
-        id="bg"
-        fill="url(#bg)"
-        width={columns * LINE_LENGTH + 2 * MARGIN.left}
-        height="600"
-        mask="url(#mapMask)"
-      />
-      {startPoint && (
-        <Line
-          startAnchor={startPoint}
-          inputs={inputs}
-          lineColor={lineColor}
-          solution={solution}
-          onPuzzleSolved={onPuzzleSolved}
+    <>
+      <Canvas width={(columns - 1) * LINE_LENGTH + 2 * MARGIN.left}>
+        <defs>
+          <g id="map">
+            {anchors.map((anchor: IAnchor) => (
+              <Anchor key={`${anchor.x}${anchor.y}`} {...anchor} />
+            ))}
+          </g>
+          <linearGradient id="bg" gradientUnits="userSpaceOnUse">
+            <stop offset="0" style={{ stopColor: color }} />
+          </linearGradient>
+          <mask id="mapMask">
+            <use xlinkHref="#map" />
+          </mask>
+        </defs>
+        <use xlinkHref="#map" stroke={borderColor} strokeWidth="15" />
+        <rect
+          id="bg"
+          fill="url(#bg)"
+          width={columns * LINE_LENGTH + 2 * MARGIN.left}
+          height="600"
+          mask="url(#mapMask)"
         />
-      )}
-      {blocks &&
-        blocks.map(
-          (block, index) =>
-            block && (
-              <rect
-                key={index}
-                fill={block.color}
-                width={BLOCK_SIZE}
-                height={BLOCK_SIZE}
-                x={(block.x + 1) * LINE_LENGTH - LINE_LENGTH / 2 + LINE_WIDTH}
-                y={(block.y + 1) * LINE_LENGTH - LINE_LENGTH / 2 + LINE_WIDTH}
-              />
-            )
+        {startPoint && (
+          <Line
+            startAnchor={startPoint}
+            inputs={inputs}
+            lineColor={lineColor}
+            solution={solution}
+            onPuzzleSolved={onPuzzleSolved}
+          />
         )}
-    </Canvas>
+        {blocks &&
+          blocks.map(
+            (block, index) =>
+              block && (
+                <rect
+                  key={index}
+                  fill={block.color}
+                  width={BLOCK_SIZE}
+                  height={BLOCK_SIZE}
+                  x={(block.x + 1) * LINE_LENGTH - LINE_LENGTH / 2 + LINE_WIDTH}
+                  y={(block.y + 1) * LINE_LENGTH - LINE_LENGTH / 2 + LINE_WIDTH}
+                />
+              )
+          )}
+        {stars &&
+          stars.map(
+            (star, index) =>
+              star && (
+                <g
+                  key={index}
+                  fill={star.color}
+                  transform={`translate(
+                    ${(star.x + 1) * LINE_LENGTH -
+                      LINE_LENGTH / 2 +
+                      LINE_WIDTH},
+                    ${(star.y + 1) * LINE_LENGTH - LINE_LENGTH / 2 + LINE_WIDTH}
+                  ) scale(0.1)`}
+                >
+                  <StarIcon />
+                </g>
+              )
+          )}
+      </Canvas>
+    </>
   );
 };
 

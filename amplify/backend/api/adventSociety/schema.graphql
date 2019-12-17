@@ -38,4 +38,5 @@ type Blocks {
 type Details {
   collect: [Coordinates]
   block: [Blocks]
+  stars: [Blocks]
 }

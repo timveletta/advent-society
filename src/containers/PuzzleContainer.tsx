@@ -116,6 +116,18 @@ const PuzzleContainer: React.FC = () => {
                         }
                     )
                   }
+                  stars={
+                    puzzle.details &&
+                    puzzle.details.stars &&
+                    puzzle.details.stars.map(
+                      b =>
+                        b && {
+                          x: b.x,
+                          y: b.y,
+                          color: b.color
+                        }
+                    )
+                  }
                 />
                 <Controls
                   color={"#ffffff"}

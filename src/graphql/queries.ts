@@ -28,6 +28,11 @@ export const puzzlesForDay = `query PuzzlesForDay($day: Int!) {
         y
         color
       }
+      stars {
+        x
+        y
+        color
+      }
     }
   }
 }
@@ -55,6 +60,11 @@ export const getPuzzle = `query GetPuzzle($id: ID!) {
         y
       }
       block {
+        x
+        y
+        color
+      }
+      stars {
         x
         y
         color

@@ -27,6 +27,7 @@ export type ColorsInput = {
 export type DetailsInput = {
   collect?: Array< CoordinatesInput | null > | null,
   block?: Array< BlocksInput | null > | null,
+  stars?: Array< BlocksInput | null > | null,
 };
 
 export type BlocksInput = {
@@ -141,6 +142,12 @@ export type PuzzleCompleteMutation = {
         y: number,
         color: string,
       } | null > | null,
+      stars:  Array< {
+        __typename: "Blocks",
+        x: number,
+        y: number,
+        color: string,
+      } | null > | null,
     } | null,
   } | null,
 };
@@ -177,6 +184,12 @@ export type CreatePuzzleMutation = {
         y: number,
       } | null > | null,
       block:  Array< {
+        __typename: "Blocks",
+        x: number,
+        y: number,
+        color: string,
+      } | null > | null,
+      stars:  Array< {
         __typename: "Blocks",
         x: number,
         y: number,
@@ -223,6 +236,12 @@ export type UpdatePuzzleMutation = {
         y: number,
         color: string,
       } | null > | null,
+      stars:  Array< {
+        __typename: "Blocks",
+        x: number,
+        y: number,
+        color: string,
+      } | null > | null,
     } | null,
   } | null,
 };
@@ -259,6 +278,12 @@ export type DeletePuzzleMutation = {
         y: number,
       } | null > | null,
       block:  Array< {
+        __typename: "Blocks",
+        x: number,
+        y: number,
+        color: string,
+      } | null > | null,
+      stars:  Array< {
         __typename: "Blocks",
         x: number,
         y: number,
@@ -305,6 +330,12 @@ export type PuzzlesForDayQuery = {
         y: number,
         color: string,
       } | null > | null,
+      stars:  Array< {
+        __typename: "Blocks",
+        x: number,
+        y: number,
+        color: string,
+      } | null > | null,
     } | null,
   } | null > | null,
 };
@@ -341,6 +372,12 @@ export type GetPuzzleQuery = {
         y: number,
       } | null > | null,
       block:  Array< {
+        __typename: "Blocks",
+        x: number,
+        y: number,
+        color: string,
+      } | null > | null,
+      stars:  Array< {
         __typename: "Blocks",
         x: number,
         y: number,
