@@ -32,6 +32,12 @@ const CodeEntry: FC<{ lockCode: string }> = ({ lockCode }) => {
   const history = useHistory();
 
   useEffect(() => {
+    if (localStorage.getItem("CODE") === lockCode) {
+      history.push("/dashboard");
+    }
+  });
+
+  useEffect(() => {
     if (code.length > 4) {
       setCode(code.slice(0, 4));
     }
